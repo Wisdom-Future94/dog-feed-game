@@ -1,127 +1,23 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>吧唧狗狗 2.0 · 空间投喂</title>
-  <style>
-    :root { font-family: ui-rounded, system-ui, -apple-system, "PingFang SC", sans-serif; color:#3c2b29; }
-    * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; display:grid; place-items:center; background:#f4e5cd; }
-    #app { width:min(100vw,520px); height:min(100vh,860px); position:relative; overflow:hidden; background:#a8e7ff; touch-action:none; user-select:none; }
-    canvas { display:block; width:100%; height:100%; }
-    .hud { position:absolute; inset:14px 15px auto; display:flex; gap:8px; justify-content:space-between; pointer-events:none; z-index:2; }
-    .pill { padding:7px 11px; border-radius:999px; background:#fffdf3e8; box-shadow:0 3px 0 #c79968; font-weight:900; font-size:14px; }
-    .pill small { margin-right:4px; opacity:.62; font-weight:700; }
-    .hint { position:absolute; left:15px; right:15px; bottom:28px; padding:9px 12px; border-radius:15px; background:#3d5e50d9; color:white; text-align:center; font-size:13px; font-weight:800; pointer-events:none; z-index:2; }
-    .overlay { position:absolute; inset:0; display:grid; place-items:center; background:#203d4855; z-index:4; }
-    .card { width:83%; padding:26px 20px; text-align:center; background:#fffdf3; border:4px solid #f3ae4b; border-radius:27px; box-shadow:0 10px 0 #cf7f48; }
-    h1 { margin:0 0 7px; color:#ea6d42; font-size:35px; letter-spacing:-1px; }
-    .subtitle { margin:0 0 18px; color:#80665c; line-height:1.55; }
-    button { border:0; padding:13px 25px; border-radius:999px; color:#fff; background:#ed7149; font-size:18px; font-weight:900; box-shadow:0 5px 0 #bd4d3b; }
-    button:active { transform:translateY(3px); box-shadow:0 2px 0 #bd4d3b; }
-    .result-score { font-size:48px; font-weight:1000; color:#ed7149; }
-    .hidden { display:none; }
-  </style>
-</head>
-<body>
-<main id="app">
-  <canvas id="game" width="520" height="860" aria-label="吧唧狗狗空间投喂游戏"></canvas>
-  <div class="hud"><div class="pill"><small>得分</small><b id="score">0</b></div><div class="pill"><small>连击</small><b id="combo">0</b></div><div class="pill"><small>剩余</small><b id="time">30</b>s</div></div>
-  <div id="hint" class="hint">按住食物，向狗狗方向拖动，松手投掷（拖得越远，力度越大）</div>
-  <div id="start" class="overlay"><section class="card"><h1>吧唧狗狗</h1><p class="subtitle">空间投喂 2.0<br>瞄准、蓄力、让狗狗跳起来接住它！</p><button id="startBtn">开始喂食</button></section></div>
-  <div id="result" class="overlay hidden"><section class="card"><h1>吃饱啦！</h1><p>狗狗们正在为你跳庆祝舞</p><div class="result-score" id="resultScore">0</div><p id="resultText"></p><button id="againBtn">再喂一轮</button></section></div>
-</main>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>村口追狗 · 原型</title>
+<style>*{box-sizing:border-box}html,body{margin:0;height:100%;background:#172b27;font-family:system-ui,-apple-system,"PingFang SC",sans-serif;overflow:hidden}#app{position:relative;width:min(100vw,520px);height:min(100vh,860px);margin:auto;overflow:hidden;background:#79c86b;touch-action:none}canvas{display:block;width:100%;height:100%}.hud{position:absolute;top:14px;left:15px;right:15px;display:flex;justify-content:space-between;color:#fff;font-weight:900;text-shadow:0 2px 3px #254b2c;pointer-events:none}.badge{padding:7px 12px;border-radius:20px;background:#234c37b8}.tip{position:absolute;top:70px;left:0;right:0;text-align:center;color:#fff;font-weight:800;text-shadow:0 2px 4px #29422a;pointer-events:none}.joy{position:absolute;left:22px;bottom:28px;width:126px;height:126px;border:3px solid #ffffff90;border-radius:50%;background:#1f584b77}.knob{position:absolute;left:50%;top:50%;width:54px;height:54px;transform:translate(-50%,-50%);border-radius:50%;background:#fff9;border:3px solid #fff;box-shadow:0 3px 8px #0003}.boost{position:absolute;right:25px;bottom:38px;width:92px;height:92px;border:4px solid #ffd66b;border-radius:50%;background:#df713bd9;color:#fff;font-size:17px;font-weight:1000;box-shadow:0 5px 0 #a84932}.boost:active,.boost.on{transform:translateY(4px);box-shadow:0 1px 0 #a84932;background:#f08b41}.overlay{position:absolute;inset:0;display:grid;place-items:center;background:#163c3855}.card{width:84%;padding:27px 21px;text-align:center;background:#fff8e9;border:4px solid #f0a54a;border-radius:27px;box-shadow:0 10px 0 #c56b3e}h1{margin:0 0 8px;color:#d85f3d;font-size:37px}.card p{color:#725d50;line-height:1.55}.card button{border:0;padding:13px 26px;border-radius:99px;background:#df6e43;color:#fff;font-size:18px;font-weight:900;box-shadow:0 5px 0 #ad4935}.hidden{display:none}</style></head>
+<body><main id="app"><canvas id="game" width="520" height="860"></canvas><div class="hud"><div class="badge">距离 <span id="dist">0</span>m</div><div class="badge">速度 <span id="speed">0</span></div><div class="badge">状态 <span id="state">快跑</span></div></div><div class="tip" id="tip">狗来了！用摇杆逃跑，找机会掉头追它</div><div class="joy" id="joy"><div class="knob" id="knob"></div></div><button class="boost" id="boost">加速</button><div class="overlay" id="start"><section class="card"><h1>村口追狗</h1><p>一开始狗追你，<br>抓住机会掉头，反过来追狗！</p><button id="startBtn">开始骑车</button></section></div><div class="overlay hidden" id="over"><section class="card"><h1 id="overTitle">追到了！</h1><p id="overText"></p><button id="again">再来一局</button></section></div></main>
 <script>
-(() => {
-  const canvas=document.querySelector('#game'), ctx=canvas.getContext('2d');
-  const W=canvas.width,H=canvas.height, launch={x:W/2,y:748};
-  const scoreEl=document.querySelector('#score'),comboEl=document.querySelector('#combo'),timeEl=document.querySelector('#time');
-  const hint=document.querySelector('#hint'),start=document.querySelector('#start'),result=document.querySelector('#result');
-  const foods=['🍖','🧀','🥓','🍪','🥩'];
-  const dogs=[
-    {name:'豆豆',x:112,z:.22,color:'#c9834e',dark:'#8a4f38',phase:0,speed:1.03},
-    {name:'奶盖',x:270,z:.57,color:'#fff0c9',dark:'#c08f66',phase:1.7,speed:.94},
-    {name:'团子',x:414,z:.86,color:'#8f83d8',dark:'#5b55a5',phase:3.1,speed:1.08}
-  ];
-  let mode='idle',score=0,combo=0,best=0,timeLeft=30,last=0,projectile=null,aim=null,dance=0,flash='',flashUntil=0,audio=null;
-  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-  const rnd=(a,b)=>a+Math.random()*(b-a);
-  function unlockAudio(){ try { audio ||= new (window.AudioContext||window.webkitAudioContext)(); if(audio.state==='suspended') audio.resume(); } catch(_){} }
-  function tone(freq,dur=.12,type='sine',gain=.07,delay=0){ if(!audio)return; const o=audio.createOscillator(),g=audio.createGain(),t=audio.currentTime+delay; o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(gain,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(audio.destination);o.start(t);o.stop(t+dur+.03); }
-  function sound(kind){ unlockAudio(); if(!audio)return;
-    if(kind==='catch'){ tone(230,.10,'sine',.14);tone(115,.19,'triangle',.13,.07);tone(760,.12,'triangle',.08,.14); }
-    else if(kind==='perfect'){ tone(520,.12,'triangle',.11);tone(780,.16,'triangle',.12,.1);tone(1040,.22,'triangle',.1,.22); }
-    else if(kind==='miss'){ tone(180,.22,'sine',.055); }
-    else if(kind==='dance'){ [392,494,587,784,587,494].forEach((f,i)=>tone(f,.13,'square',.045,i*.12)); }
-  }
-  function say(text){ try { if('speechSynthesis' in window){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=1.15;u.pitch=1.25;u.volume=.55;speechSynthesis.speak(u); } } catch(_){} }
-  function setFlash(text){ flash=text;flashUntil=performance.now()+850; }
-  function reset(){ unlockAudio();mode='play';score=combo=best=0;timeLeft=30;projectile=null;aim=null;dance=0;start.classList.add('hidden');result.classList.add('hidden');hint.classList.remove('hidden');syncHud();last=performance.now();requestAnimationFrame(loop); }
-  function syncHud(){scoreEl.textContent=score;comboEl.textContent=combo;timeEl.textContent=Math.ceil(timeLeft);}
-  function screenPoint(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height};}
-  function dogY(d){ return 475+d.z*152; }
-  function dogScale(d){ return .74+d.z*.34; }
-  function closestDog(x){ return dogs.reduce((best,i,d)=>Math.abs(d.x-x)<Math.abs(dogs[best].x-x)?i:best,0); }
-  function beginAim(p){ if(mode!=='play'||projectile)return; aim={x:p.x,y:p.y}; hint.textContent='继续拖动调整方向与力度，松手投掷！'; }
-  function updateAim(p){ if(aim) aim={x:p.x,y:p.y}; }
-  function launchFood(p){ if(!aim||mode!=='play'||projectile)return; const dx=p.x-launch.x,dy=p.y-launch.y; const distance=Math.hypot(dx,dy); const power=clamp(distance/255,.18,1); const tx=clamp(p.x,35,W-35); const target=closestDog(tx); const d=dogs[target];
-    projectile={x:launch.x,y:launch.y,vx:dx/Math.max(distance,1)*(145+power*310),vy:dy/Math.max(distance,1)*(145+power*310),age:0,life:clamp(.7+(d.z*.22)+(1-power)*.35,.62,1.35),emoji:foods[Math.floor(Math.random()*foods.length)],target,power,biteAt:false};
-    aim=null;hint.classList.add('hidden');
-  }
-  function update(dt){
-    if(mode==='play'){ timeLeft-=dt; if(timeLeft<=0){timeLeft=0;mode='dance';dance=0;projectile=null;sound('dance');} }
-    if(projectile){ const p=projectile; p.age+=dt;p.x+=p.vx*dt;p.vy+=470*dt;p.y+=p.vy*dt; const d=dogs[p.target],dy=dogY(d)-56*dogScale(d); const flight=p.age/p.life;
-      if(!p.biteAt && flight>.66){p.biteAt=true;d.jump=0;}
-      if(p.age>=p.life){ const hit=Math.abs(p.x-d.x)<(45+30*p.power) && p.y<dy+70; if(hit){ combo++;best=Math.max(best,combo);score+=10+combo*3;d.lastCatch=performance.now();d.mood=1;sound(combo>=4?'perfect':'catch');setFlash(combo>=6?'UNBELIEVABLE!':combo>=3?'GREAT!':'GOOD!');if(combo>=3)say(combo>=6?'Unbelievable!':combo>=4?'Great!':'Good!'); }
-        else {combo=0;d.mood=-1;sound('miss');setFlash('掉地上啦…');}
-        p.missed=!hit;p.groundX=clamp(p.x,35,W-35);p.groundY=760; p.doneAt=performance.now(); if(hit)projectile=null; else if(p.age>p.life+.55)projectile=null;
-      }
-    }
-    if(mode==='dance'){dance+=dt;if(dance>4.2){mode='result';document.querySelector('#resultScore').textContent=score;document.querySelector('#resultText').textContent=`最高连击 ${best} · 这群狗狗很满意！`;result.classList.remove('hidden');}}
-    syncHud();
-  }
-  function roundedRect(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();}
-  function drawDog(d,i){ const s=dogScale(d),base=dogY(d),jump=(mode==='play'&&projectile&&projectile.target===i&&projectile.biteAt&&!projectile.missed)?Math.sin(clamp((projectile.age-projectile.life*.66)/(.25),0,1)*Math.PI)*72:0; const danceJump=mode==='dance'?Math.abs(Math.sin(dance*7+d.phase))*32:0; const y=base-jump-danceJump; const wag=Math.sin(performance.now()/125+d.phase)*(.22+(d.mood===1?.22:0));
-    ctx.save();ctx.translate(d.x,y);ctx.scale(s,s);
-    ctx.fillStyle='#0002';ctx.beginPath();ctx.ellipse(0,70+jump+danceJump,55,12,0,0,Math.PI*2);ctx.fill();
-    // tail behind body
-    ctx.strokeStyle=d.dark;ctx.lineWidth=12;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(36,34);ctx.quadraticCurveTo(68,42+Math.sin(performance.now()/130+d.phase)*18,62,5+wag*20);ctx.stroke();
-    // legs
-    ctx.fillStyle=d.dark;[-25,25].forEach((x)=>{ctx.save();ctx.translate(x,51);ctx.rotate((mode==='dance'?Math.sin(dance*8+d.phase+x)*.3:0));roundedRect(-10,0,20,42,8);ctx.restore();});
-    // body
-    ctx.fillStyle=d.color;ctx.beginPath();ctx.ellipse(0,35,48,39,0,0,Math.PI*2);ctx.fill();
-    // ears and head
-    ctx.fillStyle=d.dark;ctx.beginPath();ctx.ellipse(-34,-15,17,29,-.5,0,Math.PI*2);ctx.ellipse(34,-15,17,29,.5,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle=d.color;ctx.beginPath();ctx.arc(0,-8,43,0,Math.PI*2);ctx.fill();
-    // face tracks food
-    const look=projectile&&projectile.target===i?clamp((projectile.x-d.x)/80,-1,1):0;ctx.fillStyle='#2c2424';ctx.beginPath();ctx.arc(-15+look*4,-13,5,0,Math.PI*2);ctx.arc(15+look*4,-13,5,0,Math.PI*2);ctx.fill();
-    const open=projectile&&projectile.target===i&&projectile.biteAt&&!projectile.missed;ctx.fillStyle='#3a2526';ctx.beginPath();ctx.ellipse(0,9,open?14:9,open?15:8,0,0,Math.PI*2);ctx.fill();if(open){ctx.fillStyle='#ffb0a0';ctx.beginPath();ctx.ellipse(0,17,8,5,0,0,Math.PI*2);ctx.fill();}
-    ctx.fillStyle='#49352d';ctx.font='bold 14px system-ui';ctx.textAlign='center';ctx.fillText(d.name,0,98);ctx.restore();
-  }
-  function drawScene(){ ctx.clearRect(0,0,W,H);const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#8ddfff');sky.addColorStop(.55,'#d9f5cf');sky.addColorStop(1,'#9bce70');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
-    // distant hills and clouds
-    ctx.fillStyle='#8dc9a1';ctx.beginPath();ctx.moveTo(0,450);ctx.quadraticCurveTo(120,350,240,450);ctx.quadraticCurveTo(370,330,520,445);ctx.lineTo(520,620);ctx.lineTo(0,620);ctx.fill();
-    ctx.fillStyle='#fff8';[80,230,420].forEach((x,i)=>{ctx.beginPath();ctx.arc(x,105+i%2*45,22,0,Math.PI*2);ctx.arc(x+29,105+i%2*45,30,0,Math.PI*2);ctx.arc(x+57,105+i%2*45,18,0,Math.PI*2);ctx.fill();});
-    // perspective lawn
-    ctx.fillStyle='#7fc765';ctx.beginPath();ctx.moveTo(0,520);ctx.lineTo(W,520);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.fill();ctx.strokeStyle='#6bb057';ctx.lineWidth=2;for(let i=0;i<12;i++){ctx.beginPath();ctx.moveTo(260,525);ctx.lineTo(i*50-20,860);ctx.stroke();}
-    // fence and tree props
-    ctx.fillStyle='#e6bd76';for(let x=15;x<W;x+=72){ctx.fillRect(x,494,9,50);}ctx.fillRect(0,507,W,8);
-    ctx.fillStyle='#5aa65e';ctx.beginPath();ctx.arc(55,425,37,0,Math.PI*2);ctx.arc(82,400,42,0,Math.PI*2);ctx.arc(106,430,32,0,Math.PI*2);ctx.fill();ctx.fillStyle='#805b40';ctx.fillRect(76,430,14,70);
-    ctx.fillStyle='#4e9655';ctx.font='900 21px system-ui';ctx.textAlign='center';ctx.fillText(mode==='dance'?'庆祝舞时间！':'瞄准一只狗狗，把食物抛过去',W/2,465);
-    [...dogs].sort((a,b)=>a.z-b.z).forEach((d,i)=>drawDog(d,dogs.indexOf(d)));
-    if(projectile){ctx.font='39px serif';ctx.textAlign='center';ctx.fillText(projectile.emoji,projectile.x,projectile.y);if(projectile.missed){ctx.globalAlpha=.5;ctx.font='27px serif';ctx.fillText(projectile.emoji,projectile.groundX,projectile.groundY);ctx.globalAlpha=1;}}
-    if(aim&&mode==='play'){ const dx=aim.x-launch.x,dy=aim.y-launch.y,dist=Math.hypot(dx,dy),power=clamp(dist/255,.18,1);ctx.save();ctx.strokeStyle='#fff';ctx.lineWidth=4;ctx.setLineDash([8,8]);ctx.beginPath();ctx.moveTo(launch.x,launch.y);ctx.lineTo(aim.x,aim.y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(aim.x,aim.y,12+power*12,0,Math.PI*2);ctx.fill();ctx.fillStyle='#365b4b';ctx.font='bold 15px system-ui';ctx.fillText(`力度 ${Math.round(power*100)}%`,aim.x,aim.y-23);ctx.restore();}
-    // launch basket
-    ctx.fillStyle='#e99b4f';ctx.beginPath();ctx.ellipse(launch.x,launch.y+15,43,14,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ffcf74';ctx.beginPath();ctx.ellipse(launch.x,launch.y,40,12,0,0,Math.PI*2);ctx.fill();
-    if(flash&&performance.now()<flashUntil){ctx.fillStyle='#fff';ctx.font='1000 31px system-ui';ctx.textAlign='center';ctx.shadowColor='#6b7568';ctx.shadowBlur=6;ctx.fillText(flash,W/2,230);ctx.shadowBlur=0;}
-  }
-  function loop(now){if(mode==='idle'||mode==='result')return;const dt=Math.min((now-last)/1000,.04);last=now;update(dt);drawScene();if(mode!=='result')requestAnimationFrame(loop);}
-  canvas.addEventListener('pointerdown',e=>{if(mode==='play'){canvas.setPointerCapture?.(e.pointerId);beginAim(screenPoint(e));}});
-  canvas.addEventListener('pointermove',e=>{if(aim)updateAim(screenPoint(e));});
-  canvas.addEventListener('pointerup',e=>{if(aim)launchFood(screenPoint(e));});
-  document.querySelector('#startBtn').onclick=reset;document.querySelector('#againBtn').onclick=reset;drawScene();
-})();
-</script>
-</body>
-</html>
+(()=>{const c=document.querySelector('#game'),x=c.getContext('2d'),W=520,H=860;let mode='idle',bike,dog,cam=0,score=0,time=0,last=0,boost=false,joy={x:0,y:0,active:false,id:null},audio;
+const $=id=>document.querySelector(id),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function snd(f=440,d=.1){try{audio||=(new(window.AudioContext||window.webkitAudioContext)());let o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;o.type='triangle';g.gain.value=.07;o.connect(g).connect(audio.destination);o.start();o.stop(audio.currentTime+d)}catch(_){}}
+function reset(){audio||=new(window.AudioContext||window.webkitAudioContext)();mode='run';score=0;time=0;cam=0;bike={x:260,y:620,a:0,v:0};dog={x:260,y:500,a:0,v:0,panic:0};$('start').classList.add('hidden');$('over').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}
+function pointer(e){let r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height}}
+function setJoy(e){let r=$('joy').getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,m=Math.hypot(dx,dy),max=46;if(m>max){dx=dx/m*max;dy=dy/m*max}joy.x=dx/max;joy.y=dy/max;$('knob').style.transform=`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`}
+function clearJoy(){joy.active=false;joy.x=joy.y=0;$('knob').style.transform='translate(-50%,-50%)'}
+function update(dt){if(mode!=='run')return;time+=dt;const turn=joy.x;bike.a+=turn*2.7*dt;const thrust=boost?1.35:.74;bike.v+=(-joy.y)*thrust*dt;bike.v*=Math.pow(.91,dt*60);bike.v=clamp(bike.v,0,boost?5.4:3.5);bike.x+=Math.sin(bike.a)*bike.v*2.2;bike.y-=Math.cos(bike.a)*bike.v*2.2;bike.x=clamp(bike.x,70,450);bike.y=clamp(bike.y,230,720);cam+=(bike.y-535)*dt*.22;
+ const d=dog,dx=bike.x-d.x,dy=bike.y-d.y,dist=Math.hypot(dx,dy);if(mode==='run'){if(dist<110){mode='chase';$('state').textContent='掉头追！';$('tip').textContent='漂亮！现在追上那只狗！';snd(660,.14)} if(mode==='run'){d.a=Math.atan2(dx,-dy);d.v=2.1+Math.sin(time*3)*.25;d.x+=Math.sin(d.a)*d.v*2;d.y-=Math.cos(d.a)*d.v*2;} }
+ if(mode==='chase'){d.a+=Math.sin(time*5)*.6*dt;d.v=1.9+Math.sin(time*4)*.35;d.x+=Math.sin(d.a)*d.v*2;d.y-=Math.cos(d.a)*d.v*2;bike.x+=Math.sin(bike.a)*bike.v*2.2;bike.y-=Math.cos(bike.a)*bike.v*2.2;if(dist<48){mode='win';score=Math.round(100+Math.max(0,30-time)*8);snd(900,.2);$('overTitle').textContent='追到了！';$('overText').textContent=`你在村口追了 ${Math.round(time)} 秒，得分 ${score}。狗狗正在骂骂咧咧地逃跑。`;$('over').classList.remove('hidden')}}
+ bike.x=clamp(bike.x,55,465);bike.y=clamp(bike.y,220,735);d.x=clamp(d.x,45,475);d.y=clamp(d.y,195,745);$('dist').textContent=Math.max(0,Math.round(dist));$('speed').textContent=Math.round(bike.v*18);}
+function tree(px,py,s){x.fillStyle='#765238';x.fillRect(px-6,py,s*15,s*40);x.fillStyle='#439653';x.beginPath();x.arc(px,py,s*20,0,7);x.arc(px-20*s,py+15,s*19,0,7);x.arc(px+20*s,py+15,s*19,0,7);x.fill()}
+function dogDraw(){let d=dog,wig=Math.sin(time*18)*8;x.save();x.translate(d.x,d.y);x.rotate(d.a);x.fillStyle='#0003';x.beginPath();x.ellipse(0,33,27,9,0,0,7);x.fill();x.strokeStyle='#79412d';x.lineWidth=8;x.lineCap='round';x.beginPath();x.moveTo(-16,18);x.quadraticCurveTo(-38,2,-30,-18+wig);x.stroke();x.fillStyle='#bd7046';x.beginPath();x.ellipse(0,7,27,38,0,0,7);x.fill();x.fillStyle='#9b5439';x.beginPath();x.arc(0,-31,25,0,7);x.fill();x.fillStyle='#69382d';x.beginPath();x.ellipse(-24,-33,10,18,-.5,0,7);x.ellipse(24,-33,10,18,.5,0,7);x.fill();x.fillStyle='#261e1b';x.beginPath();x.arc(-9,-34,3,0,7);x.arc(9,-34,3,0,7);x.arc(0,-22,6,0,7);x.fill();x.restore()}
+function bikeDraw(){let b=bike;x.save();x.translate(b.x,b.y);x.rotate(b.a);x.fillStyle='#0003';x.beginPath();x.ellipse(0,30,29,8,0,0,7);x.fill();x.strokeStyle='#2d3336';x.lineWidth=9;x.beginPath();x.arc(-15,17,10,0,7);x.arc(15,17,10,0,7);x.stroke();x.fillStyle='#e9573f';x.beginPath();x.roundRect(-16,-22,32,38,10);x.fill();x.fillStyle='#f4b94f';x.beginPath();x.arc(0,-27,13,0,7);x.fill();x.strokeStyle='#333';x.lineWidth=5;x.beginPath();x.moveTo(-17,-18);x.lineTo(17,-18);x.stroke();x.fillStyle='#f7f2da';x.beginPath();x.arc(0,-38,10,0,7);x.fill();x.restore()}
+function draw(){let g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#95def6');g.addColorStop(.5,'#b8e48b');g.addColorStop(1,'#77b958');x.fillStyle=g;x.fillRect(0,0,W,H);x.save();x.translate(0,-cam*.15);x.fillStyle='#d8a765';x.beginPath();x.moveTo(155,0);x.lineTo(365,0);x.lineTo(465,H);x.lineTo(55,H);x.fill();x.fillStyle='#c7965f';x.fillRect(150,0,10,H);x.fillRect(360,0,10,H);for(let y=90;y<H;y+=130){tree(60,y,.8);tree(460,y+50,.75)}x.fillStyle='#debf77';x.fillRect(50,110,85,50);x.fillStyle='#d87855';x.fillRect(50,95,85,20);x.fillStyle='#fff';x.font='bold 13px system-ui';x.fillText('村口杂货铺',58,140);dogDraw();bikeDraw();x.restore();if(boost&&mode==='run'){x.fillStyle='#fff7';x.font='900 22px system-ui';x.textAlign='center';x.fillText('冲！冲！冲！',W/2,185)}}
+function loop(now){if(mode==='idle'||mode==='win')return;let dt=Math.min((now-last)/1000,.04);last=now;update(dt);draw();requestAnimationFrame(loop)}
+$('joy').addEventListener('pointerdown',e=>{joy.active=true;joy.id=e.pointerId;$('joy').setPointerCapture?.(e.pointerId);setJoy(e)});$('joy').addEventListener('pointermove',e=>{if(joy.active)setJoy(e)});$('joy').addEventListener('pointerup',clearJoy);$('joy').addEventListener('pointercancel',clearJoy);$('boost').addEventListener('pointerdown',()=>{boost=true;$('boost').classList.add('on');snd(520,.08)});['pointerup','pointercancel','pointerleave'].forEach(ev=>$('boost').addEventListener(ev,()=>{boost=false;$('boost').classList.remove('on')}));$('startBtn').onclick=reset;$('again').onclick=reset;draw();})();
+</script></body></html>
