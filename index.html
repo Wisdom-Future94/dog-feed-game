@@ -6,7 +6,7 @@
 (()=>{const c=document.querySelector('#game'),x=c.getContext('2d'),W=520,H=860;let mode='idle',bike,dog,cam=0,score=0,time=0,last=0,boost=false,joy={x:0,y:0,active:false,id:null},audio;
 const $=id=>document.querySelector(id),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function snd(f=440,d=.1){try{audio||=(new(window.AudioContext||window.webkitAudioContext)());let o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;o.type='triangle';g.gain.value=.07;o.connect(g).connect(audio.destination);o.start();o.stop(audio.currentTime+d)}catch(_){}}
-function reset(){audio||=new(window.AudioContext||window.webkitAudioContext)();mode='run';score=0;time=0;cam=0;bike={x:260,y:620,a:0,v:0};dog={x:260,y:500,a:0,v:0,panic:0};$('start').classList.add('hidden');$('over').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}
+function reset(){try{if(!audio){const AudioCtor=window.AudioContext||window.webkitAudioContext;if(AudioCtor)audio=new AudioCtor()}}catch(_){audio=null}mode='run';score=0;time=0;cam=0;bike={x:260,y:620,a:0,v:0};dog={x:260,y:500,a:0,v:0,panic:0};$('start').classList.add('hidden');$('over').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}
 function pointer(e){let r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height}}
 function setJoy(e){let r=$('joy').getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,m=Math.hypot(dx,dy),max=46;if(m>max){dx=dx/m*max;dy=dy/m*max}joy.x=dx/max;joy.y=dy/max;$('knob').style.transform=`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`}
 function clearJoy(){joy.active=false;joy.x=joy.y=0;$('knob').style.transform='translate(-50%,-50%)'}
